@@ -8,53 +8,40 @@ const mons = [
   "Luxray",
   "Decidueye",
 ];
-let monObjects = [];
+
+const monObjects = await AddMons();
+console.log(monObjects);
+let sequence = RandomSequence();
+console.log (sequence);
 
 export default function PlayArea() {
-  useEffect(() => {
-    console.log("PlayArea loading");
-    AddMons();
-  }, []);
+
   return (
     <>
       <div className="play-area">
         <div className="card-wrapper">
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
         </div>
       </div>
     </>
   );
 }
 
-function Card() {
-    
-    const [cardInfo, SetInfo] = useState({id: 0, imageSrc: "#"});
-
-    useEffect(() => {
-        console.log("Cards loading");
-        let selectedMon = SelectMon(monObjects);
-        SetInfo(selectedMon);
-    }, []);
-    
-  return(
+function Card({ cardId, cardImg }) {
+  return (
     <>
-        <div className="card">
-            <div className="card-back">
-                <div className="card-image">
-                    <img src={cardInfo.imageSrc} alt="" />
-                </div>
-            </div>
+      <div className="card">
+        <div className="card-back">
+          <div className="card-image">
+            <img src={cardImg} alt="" id={cardId} />
+          </div>
         </div>
+      </div>
     </>
   );
 }
 
 async function AddMons() {
+  let array = [];
   for (const mon of mons) {
     try {
       let response = await fetch("https://pokeapi.co/api/v2/pokemon/" + mon, {
@@ -66,23 +53,31 @@ async function AddMons() {
       }
 
       let json = await response.json();
-      monObjects.push({ id: json.id, imageSrc: json.sprites.front_default, inUse: false });
+      if (array.find((mon) => mon.id === json.id) === undefined) {
+        array.push({
+          id: json.id,
+          imageSrc: json.sprites.front_default,
+          inUse: false,
+        });
+      }
     } catch (error) {
       console.error(error.message);
     }
   }
+
+  return array;
 }
 
-function SelectMon (mons = monObjects) {
-    if (!monObjects.length) {throw new Error ("No pokemon in list!")}
+function RandomSequence(array = []) {
+  if (array === undefined) {
+    return;
+  }
+  while (array.length !== mons.length) {
+    let newNum = Math.floor(Math.random() * mons.length);
 
-    let selectedMon = mons[Math.floor(Math.random() * mons.length)];
-
-    if (selectedMon.inUse === true) {
-        selectedMon = SelectMon(selectedMon);
+    if (array.find((num) => num === newNum) === undefined) {
+      array.push(newNum);
     }
-
-    let foo = mons.findIndex(mon => mon.id === selectedMon.id);
-    mons[foo].inUse = true;
-    return selectedMon;
+  }
+  return array;
 }
