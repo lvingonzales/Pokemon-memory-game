@@ -1,0 +1,7 @@
+@import url('https://fonts.cdnfonts.com/css/seven-segment');
+
+.score {
+    font-family: Seven Segment;
+    font-size: 4rem;
+    margin-top: 0px;
+}

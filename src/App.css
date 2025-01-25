@@ -1,5 +1,6 @@
 .game-util {
     display: flex;
+    border-top: 2px solid #fff;
 }
 
 .game-info {
@@ -7,5 +8,44 @@
 }
 
 .game-stats {
+    display: flex;
+    flex-direction: column;
     flex: 1 1 0;
+    align-items: center;
+}
+
+h1 {
+    margin-bottom: 0px;
+}
+
+h2 {
+    margin-top: 0px;
+    font-size: 1.25rem;
+}
+
+p {
+    font-size: 1.25rem;
+    text-align: justify;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 800;
+    font-style: italic;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+em {
+    color: #FF5964;
+    font-weight: 800;
+}
+
+@media (hover: none) {
+    a {
+        text-decoration: underline;
+    }
 }
