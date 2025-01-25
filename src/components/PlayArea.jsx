@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "../styles/PlayArea.css";
 
 const mons = [
   "Infernape",
@@ -12,27 +13,42 @@ const mons = [
 const monObjects = await AddMons();
 console.log(monObjects);
 let sequence = RandomSequence();
-console.log (sequence);
+console.log(sequence);
 
 export default function PlayArea() {
+  const [sequence, setSequence] = useState(RandomSequence());
 
+  const handleClick = () => {
+    console.log("CLICKED")
+    setSequence(RandomSequence());
+  };
   return (
     <>
       <div className="play-area">
         <div className="card-wrapper">
+          {sequence.map((index) => {
+            return (
+              <Card
+                key={monObjects[index].id}
+                imageSrc={monObjects[index].imageSrc}
+                id={monObjects[index].id}
+                onClick={handleClick}
+              />
+            );
+          })}
         </div>
       </div>
     </>
   );
 }
 
-function Card({ cardId, cardImg }) {
+function Card({ id, imageSrc, onClick }) {
   return (
     <>
-      <div className="card">
+      <div className="card" onClick={onClick}>
         <div className="card-back">
           <div className="card-image">
-            <img src={cardImg} alt="" id={cardId} />
+            <img src={imageSrc} alt="" id={id} />
           </div>
         </div>
       </div>
@@ -81,3 +97,9 @@ function RandomSequence(array = []) {
   }
   return array;
 }
+
+// function handleClick(cards = []) {
+//     sequence = RandomSequence();
+
+//     cards = sequence.map((index) => <Card)
+// }

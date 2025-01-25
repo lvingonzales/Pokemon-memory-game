@@ -1,1 +1,11 @@
+.game-util {
+    display: flex;
+}
 
+.game-info {
+    flex: 1.75 1 0;
+}
+
+.game-stats {
+    flex: 1 1 0;
+}
