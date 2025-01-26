@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&display=swap');
+:root {
+  background-color: #1B1F3B;
+  color: #fff;
+  font-family: Abeezee;
+}
+
+body{
+  margin: 0px;
+  display: flex;
+  place-content: space-around;
+  place-items: center;
+}
+
+#root {
+  width:50%;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 1200px) {
+  #root {
+    width: 100%;
+  }
+}
