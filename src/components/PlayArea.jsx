@@ -11,16 +11,22 @@ const mons = [
   "Decidueye",
 ];
 
-const monObjects = await AddMons();
-console.log(monObjects);
-let sequence = RandomSequence();
-console.log(sequence);
+let monObjects = [];
 
 export default function PlayArea({score ,setScore, setBest, currentBest}) {
-  const [sequence, setSequence] = useState(RandomSequence());
+  const [sequence, setSequence] = useState([]);
+
+  useEffect (() => {
+    async function fetchMons() {
+      monObjects = await AddMons();
+      setSequence(RandomSequence());
+    }
+
+    fetchMons();
+    
+  }, [])
 
   const handleClick = (cardId) => {
-    console.log("CLICKED")
     let scoreStatus = ev_CardClicked(cardId);
 
     // scoreStatus ? setScore(score + 1) : setScore(0);
