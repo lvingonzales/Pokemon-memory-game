@@ -17,3 +17,9 @@ body{
   display: flex;
   flex-direction: column;
 }
+
+@media (max-width: 1200px) {
+  #root {
+    width: 100%;
+  }
+}

@@ -1,6 +1,37 @@
 .play-area {
     background-color: #1B1F3B;
+    flex: 1 1 0;
+    position: relative;
 }
+
+.resetWrapper {
+    pointer-events: none;
+    position: absolute;
+    z-index: 9999;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #FBFBF2;
+    color: #1B1F3B;
+    width: 50%;
+    height: 30%;
+    display: flex;
+    place-items: center;
+    place-content: space-around;
+    border-radius: 10px;
+    opacity: 0%;
+    transition: 0.5s opacity ease-out;
+}
+
+.reset {
+    font-size: 4rem;
+}
+
+.resetActive {
+    opacity: 100%;
+    transition: none;
+}
+
 .card-wrapper {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -51,5 +82,12 @@ img {
         filter: drop-shadow(-10px 10px 5px #ffffff50);
         outline: 3px solid #FBFBF2;
         outline-offset: 5px;
+    }
+}
+
+@media (max-width: 600px) {
+    .card-wrapper {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(autofill, 1fr);
     }
 }

@@ -4,4 +4,16 @@
     font-family: Seven Segment;
     font-size: 4rem;
     margin-top: 0px;
+    margin-bottom: 1rem;
+    background-color: none;
+    transition: 100ms background-color ease-out;
+}
+
+.scoreReset {
+    background-color: white;
+    transition: none;
+}
+
+.bestScore {
+    margin: 0px;
 }

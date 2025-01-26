@@ -1,12 +1,20 @@
 import PlayArea from "./components/PlayArea";
 import "./App.css";
 import Score from "./components/Score";
+import { useState } from "react";
 
 export default function App() {
+  const [score, SetScore] = useState(0);
+  const [bestScore, setBest] = useState(0);
+
   return (
     <>
       <div className="game-screen">
-        <PlayArea />
+        <PlayArea score={score} setScore={SetScore} setBest={setBest} currentBest={bestScore}/>
+        <div className="game-stats">
+          <h1>Current Score</h1>
+          <Score score={score} bestScore={bestScore}/>
+        </div>
       </div>
       <div className="game-util">
         <div className="game-info">
@@ -27,10 +35,6 @@ export default function App() {
             Clicking on a pokemon more than once will <em> reset </em> your
             score.
           </p>
-        </div>
-        <div className="game-stats">
-          <h1>Current Score</h1>
-          <Score />
         </div>
       </div>
     </>

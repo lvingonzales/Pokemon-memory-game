@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "../styles/PlayArea.css";
+import { animateReset, checkBest, ev_CardClicked } from "../GameController";
 
 const mons = [
   "Infernape",
@@ -15,16 +16,28 @@ console.log(monObjects);
 let sequence = RandomSequence();
 console.log(sequence);
 
-export default function PlayArea() {
+export default function PlayArea({score ,setScore, setBest, currentBest}) {
   const [sequence, setSequence] = useState(RandomSequence());
 
-  const handleClick = () => {
+  const handleClick = (cardId) => {
     console.log("CLICKED")
+    let scoreStatus = ev_CardClicked(cardId);
+
+    // scoreStatus ? setScore(score + 1) : setScore(0);
+    if (!scoreStatus) {
+      animateReset()
+      currentBest = checkBest(score, currentBest);
+      setScore(0);
+      
+      return setBest(currentBest);
+    }
+    setScore(score + 1);
     setSequence(RandomSequence());
   };
   return (
     <>
       <div className="play-area">
+        <ResetNotif />
         <div className="card-wrapper">
           {sequence.map((index) => {
             return (
@@ -32,7 +45,7 @@ export default function PlayArea() {
                 key={monObjects[index].id}
                 imageSrc={monObjects[index].imageSrc}
                 id={monObjects[index].id}
-                onClick={handleClick}
+                onClick={(event) => handleClick(event.currentTarget.id)}
               />
             );
           })}
@@ -45,14 +58,22 @@ export default function PlayArea() {
 function Card({ id, imageSrc, onClick }) {
   return (
     <>
-      <div className="card" onClick={onClick}>
+      <div className="card" onClick={onClick} id={id}>
         <div className="card-back">
           <div className="card-image">
-            <img src={imageSrc} alt="" id={id} />
+            <img src={imageSrc} alt="" />
           </div>
         </div>
       </div>
     </>
+  );
+}
+
+function ResetNotif () {
+  return (
+    <div className="resetWrapper">
+      <p className="reset">RESET!</p>
+    </div>
   );
 }
 

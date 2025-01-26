@@ -1,3 +1,8 @@
+.game-screen {
+    display: flex;
+    place-content: space-around
+}
+
 .game-util {
     display: flex;
     border-top: 2px solid #fff;
@@ -10,7 +15,8 @@
 .game-stats {
     display: flex;
     flex-direction: column;
-    flex: 1 1 0;
+    width: fit-content;
+    flex: 0.75 1 0;
     align-items: center;
 }
 
@@ -47,5 +53,22 @@ em {
 @media (hover: none) {
     a {
         text-decoration: underline;
+    }
+}
+
+@media (max-width: 1300px) {
+    .game-screen {
+        display: flex;
+        flex-direction: column-reverse;
+        place-content: space-around;
+    }
+    .game-stats {
+        width: 100%;
+        place-items: center start;
+        flex: 0.5 1 0;
+    }
+
+    .game-stats > h1 {
+        margin-top: 0.5rem;
     }
 }
